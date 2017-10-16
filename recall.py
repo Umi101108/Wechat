@@ -77,5 +77,5 @@ def recall(msg):
 		del msg_information[old_msg_id]
 
 
-itchat.auto_login(hotReload=True)
+itchat.auto_login(hotReload=True, enableCmdQR=2)
 itchat.run()
