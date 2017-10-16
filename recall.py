@@ -6,8 +6,12 @@ from itchat.content import *
 
 msg_information = {}
 
-@itchat.msg_register([TEXT, PICTURE, FRIENDS, CARD, MAP, SHARING, RECORDING, ATTACHMENT, VIDEO], isFriendChat=True, isGroupChat=False, isMpChat=True)
+
+
+
+@itchat.msg_register([TEXT, PICTURE, FRIENDS, CARD, MAP, SHARING, RECORDING, ATTACHMENT, VIDEO], isFriendChat=True, isGroupChat=False, isMpChat=False)
 def store_msg(msg):
+	print msg
 	msg_type = msg['Type']
 	msg_id = msg['MsgId']
 	msg_from = (itchat.search_friends(userName=msg['FromUserName']))['NickName']
@@ -37,6 +41,12 @@ def store_msg(msg):
 			}
 		})
 
+	for k in msg_information.keys():
+		if msg_information[k]['msg_time'] < int(time.time())-20:
+			del msg_information[k]
+
+
+
 
 @itchat.msg_register(NOTE, isFriendChat=True, isGroupChat=True, isMpChat=True)
 def recall(msg):
@@ -52,6 +62,7 @@ def recall(msg):
 			)
 		if old_msg.get('msg_type') == 'Sharing':
 			msg_body += u"\n链接<{}>".format(old_msg.get('msg_share_url'))
+		print msg_body
 		itchat.send(msg_body, toUserName='filehelper')
 
 		file = ''
@@ -63,6 +74,7 @@ def recall(msg):
 			file = '@fil@%s' % old_msg['msg_content']
 		
 		itchat.send(msg=file, toUserName='filehelper')
+		del msg_information[old_msg_id]
 
 
 itchat.auto_login(hotReload=True)
