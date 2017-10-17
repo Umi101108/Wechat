@@ -6,6 +6,7 @@ import reply
 import receive
 from tuling import Tuling
 from cbooo import Cbooo
+from how_old import How_old
 import web
 
 class Handle(object):
@@ -63,7 +64,6 @@ class Handle(object):
                         replyMsg = reply.TextImageMsg(toUser, fromUser, title, description, picUrl, url)
                         return replyMsg.send()
                     elif recMsg.Content == '电影':
-                        print 2333
                         piaofang = Cbooo()
                         piaofang = piaofang.getPiaofang()
                         print piaofang
@@ -73,8 +73,14 @@ class Handle(object):
                     return replyMsg.send()
                 elif recMsg.MsgType == 'image':
                     mediaId = recMsg.MediaId
-                    print mediaId
-                    replyMsg = reply.ImageMsg(toUser, fromUser, mediaId)
+                    PicUrl = recMsg.PicUrl
+                    try:
+                        how_old = How_old()
+                        content = how_old.getAttributes(PicUrl)
+                        print content
+                        replyMsg = reply.TextMsg(toUser, fromUser, content)
+                    except:
+                        replyMsg = reply.ImageMsg(toUser, fromUser, mediaId)
                     return replyMsg.send()
                 else:
                     return reply.Msg().send()
