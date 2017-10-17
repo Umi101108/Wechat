@@ -55,9 +55,9 @@ def recall(msg):
 		old_msg = msg_information.get(old_msg_id)
 
 		msg_body = u"{msg_from}撤回了一条{msg_type}消息\n{msg_time}\n{msg_content}".format(
-			msg_from=old_msg.get('msg_from'), 
-			msg_type=old_msg.get('msg_type'), 
-			msg_time=time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(old_msg.get('msg_time'))), 
+			msg_from=old_msg.get('msg_from'),
+			msg_type=old_msg.get('msg_type'),
+			msg_time=time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(old_msg.get('msg_time'))),
 			msg_content=old_msg.get('msg_content')
 			)
 		if old_msg.get('msg_type') == 'Sharing':
@@ -72,7 +72,7 @@ def recall(msg):
 			file = '@vid@%s' % old_msg['msg_content']
 		elif old_msg.get('msg_type') == 'Attachment' or old_msg.get('msg_type') == 'Recording':
 			file = '@fil@%s' % old_msg['msg_content']
-		
+
 		itchat.send(msg=file, toUserName='filehelper')
 		del msg_information[old_msg_id]
 
