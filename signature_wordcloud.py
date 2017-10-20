@@ -30,6 +30,7 @@ my_wordcloud = WordCloud(background_color="white",
                          font_path='./DroidSansFallbackFull.ttf',
                          mask=abel_mask
                          ).generate(word_space_split)
+
 plt.imshow(my_wordcloud)
 plt.axis("off")
 plt.show()
