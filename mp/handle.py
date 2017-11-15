@@ -59,14 +59,11 @@ class Handle(object):
                         title = '中秋快乐'
                         description = '惊不惊喜'
                         picUrl = 'http://pic33.nipic.com/20130923/11927319_180343313383_2.jpg'
-                        #url = 'http://viewer.maka.im/k/J64391B8'
                         url = 'http://www.umi101108.com'
                         replyMsg = reply.TextImageMsg(toUser, fromUser, title, description, picUrl, url)
                         return replyMsg.send()
                     elif recMsg.Content == '电影':
-                        piaofang = Cbooo()
-                        piaofang = piaofang.getPiaofang()
-                        print piaofang
+                        piaofang = Cbooo().getPiaofang()
                         replyMsg = reply.MultiTextImageMsg(toUser, fromUser, piaofang, 5)
                         return replyMsg.send()
                     replyMsg = reply.TextMsg(toUser, fromUser, content)
@@ -75,8 +72,7 @@ class Handle(object):
                     mediaId = recMsg.MediaId
                     PicUrl = recMsg.PicUrl
                     try:
-                        how_old = How_old()
-                        content = how_old.getAttributes(PicUrl)
+                        content = How_old().getAttributes(PicUrl)
                         print content
                         replyMsg = reply.TextMsg(toUser, fromUser, content)
                     except:
@@ -86,6 +82,6 @@ class Handle(object):
                     return reply.Msg().send()
             else:
                 print "暂且不处理"
-                return "success"
+                return reply.Msg().send()
         except Exception, Argument:
             return Argument
