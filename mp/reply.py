@@ -111,5 +111,4 @@ class MultiTextImageMsg(Msg):
         </Articles>
         </xml>
         """
-        print XmlForm.format(**self.__dict)
         return XmlForm.format(**self.__dict)

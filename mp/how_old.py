@@ -10,7 +10,6 @@ class How_old(object):
     def getAttributes(self, picUrl):
         data = {'data': requests.get(picUrl).content}
         response = requests.post(self.url, files=data)
-        print response
         attributes = re.search(r'gender\\":\\"(.*?)\\",\\"age\\":(.*?),', response.content)
         gender = attributes.group(1)
         age = attributes.group(2)
